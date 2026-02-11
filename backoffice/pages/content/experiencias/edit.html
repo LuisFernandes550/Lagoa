@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Experiência - Backoffice Lagoa de Óbidos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../../assets/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="bi bi-water"></i>
+                </div>
+                <div class="sidebar-brand-text">
+                    <h4>Backoffice</h4>
+                    <p>Lagoa de Óbidos</p>
+                </div>
+            </div>
+
+            <nav>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">
+                        <a href="../../../index.html" class="sidebar-menu-link">
+                            <i class="bi bi-speedometer2 sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <div class="sidebar-heading">Gestão de Utilizadores</div>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../../users/list.html" class="sidebar-menu-link">
+                            <i class="bi bi-people sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Utilizadores</span>
+                        </a>
+                    </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <div class="sidebar-heading">Gestão de Conteúdos</div>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../historia.html" class="sidebar-menu-link">
+                            <i class="bi bi-book sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">História</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../pontos-interesse/list.html" class="sidebar-menu-link">
+                            <i class="bi bi-geo-alt sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Pontos de Interesse</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../experiencias/list.html" class="sidebar-menu-link active">
+                            <i class="bi bi-star sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Experiências</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../gastronomia/list.html" class="sidebar-menu-link">
+                            <i class="bi bi-cup-hot sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Gastronomia</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../alojamento/list.html" class="sidebar-menu-link">
+                            <i class="bi bi-house-door sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Alojamento</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../galeria.html" class="sidebar-menu-link">
+                            <i class="bi bi-images sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Galeria</span>
+                        </a>
+                    </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <li class="sidebar-menu-item">
+                        <a href="../../auth/login.html" class="sidebar-menu-link">
+                            <i class="bi bi-box-arrow-right sidebar-menu-icon"></i>
+                            <span class="sidebar-menu-text">Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <div class="header-search">
+                        <input type="text" placeholder="Pesquisar...">
+                        <i class="bi bi-search header-search-icon"></i>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-icon-btn notification-btn">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <div class="user-avatar">A</div>
+                        <div class="user-info">
+                            <span class="user-name">Administrador</span>
+                            <span class="user-role">Super Admin</span>
+                        </div>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Editar Experiência</h1>
+                    <div class="page-breadcrumb">
+                        <div class="breadcrumb-item">
+                            <a href="../../../index.html"><i class="bi bi-house"></i> Início</a>
+                        </div>
+                        <span class="breadcrumb-separator">/</span>
+                        <div class="breadcrumb-item">
+                            <a href="list.html">Experiências</a>
+                        </div>
+                        <span class="breadcrumb-separator">/</span>
+                        <div class="breadcrumb-item">
+                            <span>Editar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="alertContainer"></div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Dados da Experiência</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="experienciaForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="nome" class="form-label">Nome da Experiência <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="nome" name="nome"
+                                            value="Passeio Cultural no Castelo" required>
+                                        <div class="invalid-feedback">Por favor, insira o nome da experiência.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="tipo" class="form-label">Tipo <span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control" id="tipo" name="tipo" required>
+                                            <option value="">Selecione o tipo</option>
+                                            <option value="cultural" selected>Cultural</option>
+                                            <option value="educativa">Educativa</option>
+                                            <option value="desportiva">Desportiva</option>
+                                            <option value="outro">Outro</option>
+                                        </select>
+                                        <div class="invalid-feedback">Por favor, selecione o tipo de experiência.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descricao" class="form-label">Descrição <span
+                                        class="text-danger">*</span></label>
+                                <textarea class="form-control" id="descricao" name="descricao" rows="4"
+                                    required>Visita guiada ao Castelo de Óbidos, com explicações históricas e atividades interativas.</textarea>
+                                <div class="invalid-feedback">Por favor, insira uma descrição.</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="localizacao" class="form-label">Localização <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="localizacao" name="localizacao"
+                                            value="Castelo de Óbidos" required>
+                                        <div class="invalid-feedback">Por favor, insira a localização.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="duracao" class="form-label">Duração (h)</label>
+                                        <input type="number" class="form-control" id="duracao" name="duracao" value="2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <input type="tel" class="form-control" id="telefone" name="telefone"
+                                            value="+351 262 970 555">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="info@castelodeobidos.pt">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="imagem" class="form-label">Imagem Principal</label>
+                                <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
+                                <small class="form-text text-muted">Imagem recomendada: 1200x800px</small>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="status" class="form-label">Estado <span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control" id="status" name="status" required>
+                                            <option value="published" selected>Publicado</option>
+                                            <option value="draft">Rascunho</option>
+                                        </select>
+                                        <div class="invalid-feedback">Por favor, selecione um estado.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="destaque" class="form-label">Destaque</label>
+                                        <select class="form-control" id="destaque" name="destaque">
+                                            <option value="0">Não</option>
+                                            <option value="1">Sim</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 justify-content-end mt-4">
+                                <a href="list.html" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Atualizar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <p class="footer-text">&copy; 2026 Lagoa de Óbidos - Backoffice. Todos os direitos reservados.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/js/dashboard.js"></script>
+    <script>
+        document.getElementById('experienciaForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+
+            showAlert('success', 'Experiência atualizada com sucesso!');
+
+            setTimeout(() => {
+                window.location.href = 'list.html';
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register - Lagoa Admin Dashboard">
+    <title>Register - Lagoa Admin</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="assets/css/custom.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+        }
+        
+        .auth-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e2139;
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-header p {
+            color: #6c757d;
+            margin: 0;
+        }
+        
+        .auth-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+        }
+        
+        .form-control.is-invalid:focus {
+            border-color: #d92550;
+            box-shadow: 0 0 0 0.2rem rgba(217, 37, 80, 0.15);
+        }
+        
+        .form-control.is-valid:focus {
+            border-color: #3ac47d;
+            box-shadow: 0 0 0 0.2rem rgba(58, 196, 125, 0.15);
+        }
+        
+        .btn-register {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            color: #fff;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .auth-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #dee2e6;
+        }
+        
+        .divider span {
+            background: #fff;
+            padding: 0 1rem;
+            position: relative;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .alert {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .password-strength {
+            margin-top: 0.5rem;
+            height: 4px;
+            background: #dee2e6;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #d92550;
+        }
+        
+        .password-strength-bar.medium {
+            width: 66%;
+            background: #f7b924;
+        }
+        
+        .password-strength-bar.strong {
+            width: 100%;
+            background: #3ac47d;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <i class="bi bi-water"></i>
+            </div>
+            
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p>Fill in the details to get started</p>
+            </div>
+            
+            <!-- Success Alert (hidden by default, shown via JS) -->
+            <div class="alert alert-success d-none" id="successAlert">
+                <i class="bi bi-check-circle me-2"></i>
+                <span id="successMessage">Registration successful! Redirecting...</span>
+            </div>
+            
+            <!-- Error Alert (hidden by default, shown via JS) -->
+            <div class="alert alert-danger d-none" id="errorAlert">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <span id="errorMessage">Please fix the errors below.</span>
+            </div>
+            
+            <!-- Register Form -->
+            <!-- In Laravel, this will be: <form action="{{ route('register') }}" method="POST"> -->
+            <form id="registerForm" novalidate>
+                <!-- Name Field -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name" 
+                        placeholder="John Doe"
+                        required
+                        minlength="3"
+                    >
+                    <div class="invalid-feedback">
+                        Name must be at least 3 characters long.
+                    </div>
+                </div>
+                
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        name="email" 
+                        placeholder="your.email@example.com"
+                        required
+                    >
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+                
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="position-relative">
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Create a strong password"
+                            required
+                            minlength="8"
+                        >
+                        <button 
+                            type="button" 
+                            class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-decoration-none"
+                            id="togglePassword"
+                            tabindex="-1"
+                        >
+                            <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                    </div>
+                    <small class="text-muted d-block mt-1" id="passwordStrengthText">
+                        Password must be at least 8 characters
+                    </small>
+                    <div class="invalid-feedback">
+                        Password must be at least 8 characters long.
+                    </div>
+                </div>
+                
+                <!-- Confirm Password Field -->
+                <div class="mb-3">
+                    <label for="passwordConfirm" class="form-label">Confirm Password</label>
+                    <div class="position-relative">
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            id="passwordConfirm" 
+                            name="password_confirmation" 
+                            placeholder="Re-enter your password"
+                            required
+                        >
+                        <button 
+                            type="button" 
+                            class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-decoration-none"
+                            id="togglePasswordConfirm"
+                            tabindex="-1"
+                        >
+                            <i class="bi bi-eye" id="togglePasswordConfirmIcon"></i>
+                        </button>
+                    </div>
+                    <div class="invalid-feedback">
+                        Passwords do not match.
+                    </div>
+                </div>
+                
+                <!-- Terms and Conditions -->
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            id="terms" 
+                            name="terms" 
+                            required
+                        >
+                        <label class="form-check-label" for="terms">
+                            I agree to the <a href="#" class="text-decoration-none">Terms & Conditions</a>
+                        </label>
+                        <div class="invalid-feedback">
+                            You must agree to the terms and conditions.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-register">
+                    <i class="bi bi-person-plus me-2"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <!-- Divider -->
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="auth-footer">
+                <p class="text-muted mb-0">
+                    Already have an account? 
+                    <a href="login.html">Sign in here</a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="text-center mt-4">
+            <p class="text-white mb-0">&copy; 2024 Lagoa Admin. All rights reserved.</p>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Register Validation Script -->
+    <script>
+        // Form elements
+        const registerForm = document.getElementById('registerForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const passwordConfirmInput = document.getElementById('passwordConfirm');
+        const termsCheckbox = document.getElementById('terms');
+        const togglePassword = document.getElementById('togglePassword');
+        const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+        const togglePasswordConfirm = document.getElementById('togglePasswordConfirm');
+        const togglePasswordConfirmIcon = document.getElementById('togglePasswordConfirmIcon');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+        const passwordStrengthText = document.getElementById('passwordStrengthText');
+        
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            if (type === 'text') {
+                togglePasswordIcon.classList.remove('bi-eye');
+                togglePasswordIcon.classList.add('bi-eye-slash');
+            } else {
+                togglePasswordIcon.classList.remove('bi-eye-slash');
+                togglePasswordIcon.classList.add('bi-eye');
+            }
+        });
+        
+        togglePasswordConfirm.addEventListener('click', function() {
+            const type = passwordConfirmInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordConfirmInput.setAttribute('type', type);
+            
+            if (type === 'text') {
+                togglePasswordConfirmIcon.classList.remove('bi-eye');
+                togglePasswordConfirmIcon.classList.add('bi-eye-slash');
+            } else {
+                togglePasswordConfirmIcon.classList.remove('bi-eye-slash');
+                togglePasswordConfirmIcon.classList.add('bi-eye');
+            }
+        });
+        
+        // Password strength checker
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            passwordStrengthBar.className = 'password-strength-bar';
+            
+            if (strength <= 1) {
+                passwordStrengthBar.classList.add('weak');
+                passwordStrengthText.textContent = 'Weak password';
+                passwordStrengthText.className = 'text-danger d-block mt-1';
+            } else if (strength <= 2) {
+                passwordStrengthBar.classList.add('medium');
+                passwordStrengthText.textContent = 'Medium strength password';
+                passwordStrengthText.className = 'text-warning d-block mt-1';
+            } else {
+                passwordStrengthBar.classList.add('strong');
+                passwordStrengthText.textContent = 'Strong password';
+                passwordStrengthText.className = 'text-success d-block mt-1';
+            }
+        });
+        
+        // Form submit handler
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Hide alerts
+            successAlert.classList.add('d-none');
+            errorAlert.classList.add('d-none');
+            
+            // Remove previous validation states
+            nameInput.classList.remove('is-invalid', 'is-valid');
+            emailInput.classList.remove('is-invalid', 'is-valid');
+            passwordInput.classList.remove('is-invalid', 'is-valid');
+            passwordConfirmInput.classList.remove('is-invalid', 'is-valid');
+            termsCheckbox.classList.remove('is-invalid', 'is-valid');
+            
+            let isValid = true;
+            
+            // Validate name
+            if (!nameInput.value || nameInput.value.length < 3) {
+                nameInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nameInput.classList.add('is-valid');
+            }
+            
+            // Validate email
+            if (!emailInput.value || !emailInput.checkValidity()) {
+                emailInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                emailInput.classList.add('is-valid');
+            }
+            
+            // Validate password
+            if (!passwordInput.value || passwordInput.value.length < 8) {
+                passwordInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                passwordInput.classList.add('is-valid');
+            }
+            
+            // Validate password confirmation
+            if (!passwordConfirmInput.value || passwordConfirmInput.value !== passwordInput.value) {
+                passwordConfirmInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                passwordConfirmInput.classList.add('is-valid');
+            }
+            
+            // Validate terms checkbox
+            if (!termsCheckbox.checked) {
+                termsCheckbox.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                termsCheckbox.classList.add('is-valid');
+            }
+            
+            // If valid, show success (in Laravel, this will redirect)
+            if (isValid) {
+                successAlert.classList.remove('d-none');
+                
+                // Simulate redirect to dashboard after 1.5 seconds
+                setTimeout(function() {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                errorAlert.classList.remove('d-none');
+                // Scroll to top to show error
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+        
+        // Real-time validation on blur
+        nameInput.addEventListener('blur', function() {
+            if (nameInput.value && nameInput.value.length >= 3) {
+                nameInput.classList.remove('is-invalid');
+                nameInput.classList.add('is-valid');
+            } else if (nameInput.value) {
+                nameInput.classList.remove('is-valid');
+                nameInput.classList.add('is-invalid');
+            }
+        });
+        
+        emailInput.addEventListener('blur', function() {
+            if (emailInput.value && emailInput.checkValidity()) {
+                emailInput.classList.remove('is-invalid');
+                emailInput.classList.add('is-valid');
+            } else if (emailInput.value) {
+                emailInput.classList.remove('is-valid');
+                emailInput.classList.add('is-invalid');
+            }
+        });
+        
+        passwordInput.addEventListener('blur', function() {
+            if (passwordInput.value && passwordInput.value.length >= 8) {
+                passwordInput.classList.remove('is-invalid');
+                passwordInput.classList.add('is-valid');
+            } else if (passwordInput.value) {
+                passwordInput.classList.remove('is-valid');
+                passwordInput.classList.add('is-invalid');
+            }
+        });
+        
+        passwordConfirmInput.addEventListener('blur', function() {
+            if (passwordConfirmInput.value && passwordConfirmInput.value === passwordInput.value) {
+                passwordConfirmInput.classList.remove('is-invalid');
+                passwordConfirmInput.classList.add('is-valid');
+            } else if (passwordConfirmInput.value) {
+                passwordConfirmInput.classList.remove('is-valid');
+                passwordConfirmInput.classList.add('is-invalid');
+            }
+        });
+    </script>
+</body>
+</html>
